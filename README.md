@@ -1,10 +1,5 @@
 # Simón Dice - Juego de Memoria
 
-![Simón Dice](https://img.shields.io/badge/Juego-Sim%C3%B3n%20Dice-brightgreen)
-![HTML5](https://img.shields.io/badge/HTML-5-orange)
-![CSS3](https://img.shields.io/badge/CSS-3-blue)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
-
 Un juego clásico de memoria donde debes recordar y repetir la secuencia de colores y sonidos. ¡Pon a prueba tu memoria y concentración!
 
 ## 📋 Descripción
@@ -37,7 +32,7 @@ Un juego clásico de memoria donde debes recordar y repetir la secuencia de colo
 1. Clona este repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/simon-dice.git
+   git clone https://github.com/Julio3008/simon-dice.git
    ```
 
 2. Navega al directorio del proyecto:
@@ -84,10 +79,6 @@ Puedes personalizar el juego modificando:
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para detalles
-
-## 👨‍💻 Autor
-
-- Tu Nombre - [tu-usuario](https://github.com/tu-usuario)
 
 ## 🎁 Agradecimientos
 
