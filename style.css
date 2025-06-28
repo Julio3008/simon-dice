@@ -1,80 +1,181 @@
 body {
-  display: inline-grid;
-  place-items: center;
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
   font-family: "Merriweather", serif;
+  color: white;
 }
 
 .simon {
   position: relative;
-  margin-top: 50px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 600px;
 }
 
 .buttonContainer {
-  display: inline-grid;
-  grid-gap: 10px;
+  display: grid;
+  grid-gap: 15px;
   grid-template-columns: auto auto;
   transform: rotate(45deg);
+  margin: 40px 0;
 }
 
 .square {
-  border-radius: 5px;
+  border-radius: 15px;
   width: 150px;
   height: 150px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .square:active,
 .active {
-  filter: brightness(125%);
+  filter: brightness(150%);
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .red {
-  background-color: #ee6352;
+  background-color: #ff4757;
 }
 
 .blue {
-  background-color: #08b2e3;
+  background-color: #2ed573;
 }
 
 .green {
-  background-color: #57a773;
+  background-color: #1e90ff;
 }
 
 .yellow {
-  background-color: #ffdf64;
+  background-color: #ffa502;
 }
 
 #startButton {
-  width: 75px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
   border: none;
   font-family: "Merriweather", serif;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 50px;
   color: #fff;
-  background-color: #587792;
-  padding: 5px;
+  background: linear-gradient(to right, #4b6cb7, #182848);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+#startButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+#startButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 #startButton:disabled {
-  background-color: #eee;
+  background: #7f8c8d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .title {
-  width: min-content;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to right, #fff, #ddd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#round {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #ecf0f1;
 }
 
 .winner {
-  animation: spin 1s ease-in-out;
+  animation: spin 1s ease-in-out, glow 1.5s infinite alternate;
 }
 
 @keyframes spin {
   100% {
     transform: rotate(180deg);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073;
+  }
+  to {
+    box-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6;
+  }
+}
+
+.instructions {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  max-width: 80%;
+}
+
+.instructions p {
+  margin: 0;
+}
+
+.instructions i {
+  margin-right: 5px;
+  color: #ffa502;
+}
+
+@media (max-width: 768px) {
+  .square {
+    width: 120px;
+    height: 120px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  #startButton {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .square {
+    width: 90px;
+    height: 90px;
+  }
+
+  .buttonContainer {
+    grid-gap: 10px;
+  }
+
+  .title {
+    font-size: 1.8rem;
   }
 }

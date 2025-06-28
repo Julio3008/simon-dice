@@ -1,20 +1,31 @@
+/**
+ * Simon Dice - Juego de Memoria
+ * Un juego clásico donde debes recordar y repetir la secuencia de colores
+ */
+
+// Elementos del DOM
 const round = document.getElementById("round");
 const simonButtons = document.getElementsByClassName("square");
 const startButton = document.getElementById("startButton");
 
 class Simon {
   constructor(simonButtons, startButton, round) {
+    // Estado del juego
     this.round = 0;
     this.userPosition = 0;
     this.totalRounds = 10;
     this.sequence = [];
     this.speed = 1000;
     this.blockedButtons = true;
+
+    // Elementos del DOM
     this.buttons = Array.from(simonButtons);
     this.display = {
       startButton,
       round,
     };
+
+    // Sonidos del juego
     this.errorSound = new Audio("./musica/sounds_error.wav");
     this.buttonSounds = [
       new Audio("./musica/sounds_1.mp3"),
@@ -24,54 +35,84 @@ class Simon {
     ];
   }
 
-  // Inicia el Simon
+  /**
+   * Inicializa el juego y configura el botón de inicio
+   */
   init() {
     this.display.startButton.onclick = () => this.startGame();
+    // Mostrar mensaje inicial
+    this.display.round.textContent = "¡Presiona Iniciar!";
   }
 
-  // Comienza el juego
+  /**
+   * Comienza el juego: reinicia variables y genera secuencia
+   */
   startGame() {
     this.display.startButton.disabled = true;
     this.updateRound(0);
     this.userPosition = 0;
     this.sequence = this.createSequence();
+    this.speed = 1000; // Reinicia la velocidad al iniciar nuevo juego
+
+    // Configura los botones y elimina efectos de victoria
     this.buttons.forEach((element, i) => {
       element.classList.remove("winner");
       element.onclick = () => this.buttonClick(i);
     });
-    this.showSequence();
+
+    // Muestra la primera secuencia
+    setTimeout(() => this.showSequence(), 500);
   }
 
-  // Actualiza la ronda y el tablero
+  /**
+   * Actualiza el número de ronda y el texto mostrado
+   */
   updateRound(value) {
     this.round = value;
-    this.display.round.textContent = `Round ${this.round}`;
+    this.display.round.textContent = `Ronda ${this.round + 1} de ${
+      this.totalRounds
+    }`;
   }
 
-  // Crea el array aleatorio de botones
+  /**
+   * Crea una secuencia aleatoria de colores
+   */
   createSequence() {
     return Array.from({ length: this.totalRounds }, () =>
       this.getRandomColor()
     );
   }
 
-  // Devuelve un número al azar entre 0 y 3
+  /**
+   * Genera un número aleatorio entre 0 y 3 (para los 4 colores)
+   */
   getRandomColor() {
     return Math.floor(Math.random() * 4);
   }
 
-  // Ejecuta una función cuando se hace click en un botón
+  /**
+   * Maneja el clic en un botón si no están bloqueados
+   */
   buttonClick(value) {
-    !this.blockedButtons && this.validateChosenColor(value);
+    if (!this.blockedButtons) {
+      this.validateChosenColor(value);
+    }
   }
 
-  // Valida si el boton que toca el usuario corresponde a al valor de la secuencia
+  /**
+   * Valida si el color elegido corresponde al de la secuencia
+   */
   validateChosenColor(value) {
     if (this.sequence[this.userPosition] === value) {
+      // Reproduce sonido y muestra efecto visual
       this.buttonSounds[value].play();
-      if (this.round === this.userPosition) {
+      this.toggleButtonStyle(this.buttons[value]);
+      setTimeout(() => this.toggleButtonStyle(this.buttons[value]), 300);
+
+      // Verifica si completó la ronda actual
+      if (this.userPosition === this.round) {
         this.updateRound(this.round + 1);
-        this.speed /= 1.02;
+        this.speed /= 1.02; // Aumenta la velocidad gradualmente
         this.isGameOver();
       } else {
         this.userPosition++;
@@ -81,17 +122,21 @@ class Simon {
     }
   }
 
-  // Verifica que no haya acabado el juego
+  /**
+   * Verifica si el juego ha terminado
+   */
   isGameOver() {
     if (this.round === this.totalRounds) {
       this.gameWon();
     } else {
       this.userPosition = 0;
-      this.showSequence();
+      setTimeout(() => this.showSequence(), 1000);
     }
   }
 
-  // Muestra la secuencia de botones que va a tener que tocar el usuario
+  /**
+   * Muestra la secuencia de colores que el jugador debe repetir
+   */
   showSequence() {
     this.blockedButtons = true;
     let sequenceIndex = 0;
@@ -108,28 +153,36 @@ class Simon {
     }, this.speed);
   }
 
-  // Pinta los botones para cuando se está mostrando la secuencia
+  /**
+   * Aplica/quita el estilo activo a un botón
+   */
   toggleButtonStyle(button) {
     button.classList.toggle("active");
   }
 
-  // Actualiza el simon cuando el jugador pierde
+  /**
+   * Maneja el final del juego cuando el jugador pierde
+   */
   gameLost() {
     this.errorSound.play();
     this.display.startButton.disabled = false;
     this.blockedButtons = true;
+    this.display.round.textContent = "¡Has perdido! Inténtalo de nuevo";
   }
 
-  // Muestra la animacón de triunfo y actualiza el simon cuando el jugador gana
+  /**
+   * Maneja el final del juego cuando el jugador gana
+   */
   gameWon() {
     this.display.startButton.disabled = false;
     this.blockedButtons = true;
     this.buttons.forEach((element) => {
       element.classList.add("winner");
     });
-    this.updateRound("🏆");
+    this.display.round.textContent = "🏆 ¡Has ganado! 🏆";
   }
 }
 
+// Inicializa el juego
 const simon = new Simon(simonButtons, startButton, round);
 simon.init();

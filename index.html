@@ -1,28 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simón dice</title>
+    <title>Simón Dice - Juego de Memoria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link href="style.css" rel="stylesheet" />
     <script src="script.js" type="text/javascript" defer></script>
   </head>
   <body>
-    <div class="simon">
-      <div class="title">Simon Dice</div>
-      <button id="startButton">Start</button>
+    <main class="simon">
+      <h1 class="title">Simón Dice</h1>
+      <button id="startButton"><i class="fas fa-play"></i> Iniciar</button>
       <div class="buttonContainer">
-        <div class="square red"></div>
-        <div class="square yellow"></div>
-        <div class="square blue"></div>
-        <div class="square green"></div>
+        <div class="square red" data-color="red"></div>
+        <div class="square yellow" data-color="yellow"></div>
+        <div class="square blue" data-color="blue"></div>
+        <div class="square green" data-color="green"></div>
       </div>
-      <div id="round"></div>
-    </div>
+      <div id="round">¡Presiona Iniciar!</div>
+      <div class="instructions">
+        <p>
+          <i class="fas fa-info-circle"></i> Sigue la secuencia de colores y
+          sonidos
+        </p>
+      </div>
+    </main>
   </body>
 </html>
